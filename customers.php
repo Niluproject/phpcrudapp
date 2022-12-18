@@ -6,8 +6,18 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" >
      
     <script src="js/slim.min.js"></script>
-
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#myTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+</script>
 </head>
 <style>
   body{
@@ -29,12 +39,14 @@
 
         <div class="col-md-12">
             <div class="float-left">
-                <h2>PHP Member List</h2>
+                <!-- <h2>PHP Member List</h2> -->
+                <!-- <input id="myInput" type="text" placeholder="Search.."> -->
+                <input class="form-control mr-sm-2" type="search" id="myInput" placeholder="Search" aria-label="Search">
             </div>            
             <div class="float-right">
                 <a href="add.php" class="btn btn-success">Add New Customer Record</a>
-            </div>
-           
+            </div><br><br>
+            
 
             <table class="table">
               <thead>
@@ -46,7 +58,7 @@
                   <th scope="col">Action</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="myTable">
                 <?php
 
                 include 'mydbCon.php';
@@ -59,7 +71,9 @@
 
                 <?php if ($result->num_rows > 0): ?>
 
-                <?php while($array=mysqli_fetch_row($result)): ?>
+                <?php 
+                  while($array=mysqli_fetch_row($result)): 
+                  ?>
 
                 <tr>
                     <th scope="row"><?php echo $array[0];?></th>
@@ -69,6 +83,7 @@
                     <td> 
                       <a href="edit.php?custId=<?php echo $array[0];?>" class="btn btn-primary">Edit</a>
                       <a href="delete.php?custId=<?php echo $array[0];?>" class="btn btn-danger">Delete</a>
+                      
                 </tr>
 
                 <?php endwhile; ?>

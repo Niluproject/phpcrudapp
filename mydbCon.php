@@ -1,13 +1,12 @@
 <?php
 
-    $hName='localhost'; // host name
+    $hName='localhost';
 
-    $uName='root';   // database user name
+    $uName='root';  
 
-    $password='';   // database password
+    $password='';   
 
-    $dbName = "my_db"; // database name
-
+    $dbName = "my_db"; 
     $dbCon = mysqli_connect($hName,$uName,$password,"$dbName");
 
       if(!$dbCon){
